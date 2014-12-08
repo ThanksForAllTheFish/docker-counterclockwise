@@ -1,0 +1,15 @@
+FROM ubuntu:14.04.1
+MAINTAINER mardavi84@gmail.com
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN sed 's/main$/main universe/' -i /etc/apt/sources.list \
+	&& echo "APT::Install-Recommends 0;" >> /etc/apt/apt.conf.d/01norecommends \
+	&& echo "APT::Install-Suggests 0;" >> /etc/apt/apt.conf.d/01norecommends \
+	&& apt-get update \
+	&& apt-get install -y software-properties-common vim.tiny wget sudo net-tools ca-certificates \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+RUN echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+
