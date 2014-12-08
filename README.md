@@ -9,6 +9,7 @@
 
 ## Quickstart
 I decided to split Counterclockwise dockerization in three `Dockerfile`s
+
 1. `ubuntu.docker` enriches base ubuntu 14.04.1 image available at https://registry.hub.docker.com/_/ubuntu/
 2. `java.docker` starts from `ubuntu.docker` and installs java 8u25
 3. `Dockerfile` picks up from where `java.docker` left and installs gtk dependencies and Counterclockwise itself
