@@ -10,6 +10,8 @@ RUN apt-get update && \
 RUN wget http://doc.ccw-ide.org/products/Counterclockwise-0.31.1.STABLE001-linux.gtk.x86_64.zip -O /tmp/Counterclockwise.zip -q
 
 ADD conf /tmp/conf
+ADD scripts /scripts
+RUN chmod a+x /scripts/*.sh
 
 RUN echo 'Installing Counterclockwise' && \
 	unzip /tmp/Counterclockwise.zip -d /opt && \
@@ -24,10 +26,9 @@ RUN mkdir -p /home/developer && \
 	echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
 	chmod 0440 /etc/sudoers.d/developer && \
 	chown developer:developer -R /home/developer && \
-	chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo && \
-	chown -R developer. /home/developer
+	chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
 
 USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer
-CMD /opt/counterclockwise-0.31.1.STABLE001/Counterclockwise
+CMD /scripts/clojure.sh
