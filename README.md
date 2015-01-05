@@ -12,7 +12,7 @@ I decided to split Counterclockwise dockerization in three `Dockerfile`s
 
 1. `ubuntu.docker` enriches base ubuntu 14.04.1 image available at https://registry.hub.docker.com/_/ubuntu/
 2. `java.docker` starts from `ubuntu.docker` and installs java 8u25
-3. `Dockerfile` picks up from where `java.docker` left and installs gtk dependencies and Counterclockwise itself
+3. `Dockerfile` picks up from where `java.docker` left and installs lein, gtk dependencies and Counterclockwise itself
 
 Due to this containerization, and to the naming chosen, to build the counterclockwise container run:
 
@@ -32,7 +32,19 @@ sudo docker run --rm -it -e DISPLAY=$DISPLAY \
 	mdavi/counterclockwise:0.31.1
 ```
 
+## Access lein REPL (read–eval–print loop)
+
+To gain access to the native lein REPL, launch the Docker container with
+
+```
+sudo docker run --rm -it \
+	mdavi/counterclockwise:0.31.1 /usr/local/bin/lein repl
+```
+
+This will launch a minimal immutable lein REPL
+
 ## TODO
 
 The generated container is absolutely too big, I would really like to compress it a bit. But to achieve this goal, I should study Docker more!
-Also, I need to improve `Dockerfile`
+Also, I need to improve `Dockerfile`.
+Add git (compiled from source), so that it will be possible to share and import projects in Counterclockwise easily.

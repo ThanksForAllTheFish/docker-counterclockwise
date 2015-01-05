@@ -29,6 +29,12 @@ RUN mkdir -p /home/developer && \
 	chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
 
 USER developer
+
+RUN sudo wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -O /usr/local/bin/lein -q && \
+	sudo chmod 755 /usr/local/bin/lein && \
+#lein auto-install install itself on first call, just use lein help as a trick to install it
+	lein help
+
 ENV HOME /home/developer
 WORKDIR /home/developer
 CMD /scripts/clojure.sh
